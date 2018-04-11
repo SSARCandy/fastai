@@ -87,8 +87,8 @@ class Learner():
         if name is None: return None
         return lambda sched, cycle: self.save_cycle(name, cycle)
 
-    def save_cycle(self, name, cycle): self.save(f'{name}_cyc_{cycle}')
-    def load_cycle(self, name, cycle): self.load(f'{name}_cyc_{cycle}')
+    def save_cycle(self, name, cycle): self.save('{}_cyc_{}'.format(name, cycle))
+    def load_cycle(self, name, cycle): self.load('{}_cyc_{}'.format(name, cycle))
         
     def half(self):
         if self.fp16: return

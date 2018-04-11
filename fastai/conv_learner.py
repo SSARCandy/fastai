@@ -53,7 +53,7 @@ class ConvnetBuilder():
         self.model = to_gpu(nn.Sequential(*(layers+fc_layers)))
 
     @property
-    def name(self): return f'{self.f.__name__}_{self.xtra_cut}'
+    def name(self): return '{}_{}'.format(self.f.__name__, self.xtra_cut)
 
     def create_fc_layer(self, ni, nf, p, actn=None):
         res=[nn.BatchNorm1d(num_features=ni)]
@@ -141,7 +141,7 @@ class ConvLearner(Learner):
         return res
 
     def get_activations(self, force=False):
-        tmpl = f'_{self.models.name}_{self.data.sz}.bc'
+        tmpl = '_{}_{}.bc'.format(self.models.name, self.data.sz)
         # TODO: Somehow check that directory names haven't changed (e.g. added test set)
         names = [os.path.join(self.tmp_path, p+tmpl) for p in ('x_act', 'x_act_val', 'x_act_test')]
         if os.path.exists(names[0]) and not force:

@@ -44,7 +44,7 @@ def resize_imgs(fnames, targ, path, new_path):
 
 def read_dir(path, folder):
     full_path = os.path.join(path, folder)
-    fnames = glob(f"{full_path}/*.*")
+    fnames = glob("{}/*.*".format(full_path))
     if any(fnames):
         return [os.path.relpath(f,path) for f in fnames]
     else:
@@ -235,10 +235,10 @@ def open_image(fn):
     else:
         try:
             im = cv2.imread(str(fn), flags).astype(np.float32)/255
-            if im is None: raise OSError(f'File not recognized by opencv: {fn}')
+            if im is None: raise OSError('File not recognized by opencv: ')
             return cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         except Exception as e:
-            raise OSError('Error handling image at: {}'.format(fn)) from e
+            raise OSError('Error handling image at: {}'.format(fn)) # from e
 
 class FilesDataset(BaseDataset):
     def __init__(self, fnames, transform, path):
